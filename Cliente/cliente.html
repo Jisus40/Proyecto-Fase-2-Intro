@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Usuario - Catálogo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="cliente.style.css">
 </head>
 <body>
-    <h1>Hola</h1>
+    <header>
+       <div class="usuar-icono">
+            <i class="fas fa-user-circle"></i>
+        </div>
+        <nav class="links">
+            <a href="#"><i class="fas fa-house"></i> Inicio</a>
+            <a href="#"><i class="fas fa-clock-rotate-left"></i> Historial</a>
+        </nav>
+
+        <div class="user-actions">
+            <div class="cart-container">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Catálogo de Productos</h2>
+        
+        <section class="catalog">
+            <div class="product-card">
+                <div class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Producto Minimalista 01</div>
+                    <p class="product-desc">Descripción breve del producto resaltando sus características principales en tonos grises y negros.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Producto Minimalista 02</div>
+                    <p class="product-desc">Diseño elegante pensado para usuarios que buscan simplicidad y funcionalidad en su día a día.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Producto Minimalista 03</div>
+                    <p class="product-desc">Calidad premium con acabados en negro mate. Ideal para cualquier espacio de trabajo moderno.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Producto Minimalista 04</div>
+                    <p class="product-desc">Una pieza esencial que combina perfectamente con nuestra línea de accesorios de cuero gris.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
 </body>
 </html>
