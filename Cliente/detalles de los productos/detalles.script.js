@@ -1,8 +1,6 @@
-let queryParams = window.location.search;
-
-let urlParams = new URLSearchParams(queryParams);
-
-const idProducto = urlParams.get('id');
+let parametros = window.location.search;
+let url = new URLSearchParams(parametros);
+const idProducto = url.get('id');
 
 let catalogo = {
     "pr1": {
@@ -85,13 +83,10 @@ let catalogo = {
         disponible: "17",
         total: "10$"
     }
-    
 };
 
-// Buscamos la info usando el ID que atrapamos de la URL
 let producto = catalogo[idProducto];
 
-// Si el producto existe, llenamos el HTML
 if (producto) {
     document.getElementById('titulo').innerText = producto.titulo;
     document.getElementById('imagen').style.backgroundImage = `url('${producto.imagen}')`;
@@ -99,7 +94,83 @@ if (producto) {
     document.getElementById("precio").innerHTML = producto.precio;
     document.getElementById("disponible").innerHTML = producto.disponible;
     document.getElementById("total").innerHTML = producto.total;
+    let cantidad = document.getElementById("cantidad");
+    cantidad.max = producto.disponible; 
+    cantidad.min = 1;
 } else {
-    // Si alguien escribe un ID manual que no existe
     document.body.innerHTML = "<h1>Producto no encontrado</h1>";
 }
+
+let contador = document.getElementById("contador");
+let cantidad = document.getElementById("cantidad");
+let total = document.getElementById("total");
+let añadir = document.getElementById("añadir");
+
+let precio = parseFloat(producto.precio.replace('$', ''));
+
+function actualizar() {
+    let carrito = localStorage.getItem('carrito') || 0;
+    contador.textContent = carrito;
+}
+actualizar();
+
+cantidad.addEventListener("input", () => {
+    let cant = parseInt(cantidad.value);
+    
+    if (isNaN(cant) || cant < 1) {
+        total.innerText = "0$";
+        return;
+    }
+
+    let calculo = (precio * cant).toFixed(2);
+    total.innerText = `${calculo}$`;
+});
+
+añadir.addEventListener("click", () => {
+    let cantidadSe = parseInt(cantidad.value);
+    let stock = parseInt(producto.disponible);
+    
+    if (cantidadSe > stock) {
+        alert(`Lo sentimos, solo quedan ${stock} unidades disponibles.`);
+        cantidad.value = stock; //
+        return; 
+    }
+    
+    if (isNaN(cantidadSe) || cantidadSe < 1) return;
+
+    let carritoDatosP = localStorage.getItem('carritoData') || "";
+    let productos = carritoDatosP ? carritoDatosP.split("#") : [];
+    
+    let productoEncontrado = false;
+    let nuevoCarrito = [];
+
+    // 2. Revisar si el producto ya existe para agruparlo
+    for (let i = 0; i < productos.length; i++) {
+        let datos = productos[i].split("|"); // [titulo, cantidad, total]
+        if (datos[0] === producto.titulo) {
+            let nuevaCant = parseInt(datos[1]) + cantidadSe;
+            let nuevoTotal = (parseFloat(datos[2]) + (precio * cantidadSe)).toFixed(2);
+            nuevoCarrito.push(`${datos[0]}|${nuevaCant}|${nuevoTotal}`);
+            productoEncontrado = true;
+        } else {
+            nuevoCarrito.push(productos[i]);
+        }
+    }
+
+    // 3. Si es nuevo, lo agregamos al final
+    if (!productoEncontrado) {
+        let totalFila = (precio * cantidadSe).toFixed(2);
+        nuevoCarrito.push(`${producto.titulo}|${cantidadSe}|${totalFila}`);
+    }
+
+    // 4. Guardar de nuevo como string unido por #
+    localStorage.setItem('carritoData', nuevoCarrito.join("#"));
+    
+    // Actualizar contador global (suma de cantidades)
+    let totalItems = 0;
+    nuevoCarrito.forEach(p => totalItems += parseInt(p.split("|")[1]));
+    localStorage.setItem('carrito', totalItems);
+    
+    actualizar();
+    alert("Añadido al carrito con éxito");
+});

@@ -6,3 +6,10 @@ productos.forEach(producto => {
         window.location.href = `detalles de los productos/detalles.html?id=${idProducto}`;
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    let contador = document.getElementById("contador");
+    if(contador) {
+        contador.textContent = localStorage.getItem('carrito') || 0;
+    }
+});

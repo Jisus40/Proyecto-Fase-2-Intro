@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles de los productos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="detalles.style.css">
 </head>
 <body>
   <header>
       <a href="../cliente.html">Volver al inicio</a>
+      <div class="carrito">
+          <a href="../carrito/carrito.html"><i class="fas fa-shopping-cart" title="Carrito"></i></a>
+          <span id="contador">0</span>
+      </div>
   </header>
    <main>
        <div class="ladoIz">
@@ -25,12 +30,12 @@
                <p id="precio"></p>
            </div>
            <h2>Cuantas unidades desea llevar</h2>
-           <input type="number">
+           <input type="number" id="cantidad" value="1">
            <div>
                <h2>Precio total</h2>
                <p id="total"></p>
            </div>
-           <button>Añadir al carrito</button>
+           <button id="añadir">Añadir al carrito</button>
        </div>
    </main>
    <section>

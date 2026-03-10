@@ -46,7 +46,12 @@ header {
     font-size: 1.4rem;
 }
 
-.contador {
+.carrito a{
+    text-decoration: none;
+    color: #1a1a1a;
+}
+
+#contador {
     background-color: #000;
     color: #fff;
     font-size: 10px;
