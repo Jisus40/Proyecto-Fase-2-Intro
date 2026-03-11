@@ -1,0 +1,137 @@
+/* --- BASES MINIMALISTAS --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #1a1a1a;
+    padding: 40px 20px;
+}
+
+.contenedor {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* --- CABECERA --- */
+header {
+    border-bottom: 2px solid #000;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+}
+
+.status-badge {
+    font-size: 0.8rem;
+    background: #f0f0f0;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #666;
+}
+
+/* --- TARJETAS DE PEDIDOS --- */
+.bloque-compra {
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+    animation: slideUp 0.4s ease-out forwards;
+}
+
+.bloque-compra:hover {
+    border-color: #000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* Info del Cliente */
+.bloque-compra h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.bloque-compra h3::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #27ae60; /* Punto verde de "activo" */
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+/* Lista de Productos */
+.detalle-productos {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    padding-left: 22px;
+    border-left: 1px solid #eee;
+}
+
+/* Total */
+.total-caja {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #000;
+}
+
+/* --- BOTÓN DE ACCIÓN --- */
+.btn-puntos { /* Reutilizamos el nombre de clase que ya tenías */
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-puntos:hover {
+    background: #fff;
+    color: #000;
+}
+
+/* --- ESTADO VACÍO --- */
+.vacio-msg {
+    text-align: center;
+    padding: 100px 0;
+    color: #999;
+    font-size: 1.2rem;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    h1 { font-size: 1.6rem; }
+    .bloque-compra { padding: 20px; }
+}

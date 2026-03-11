@@ -1,0 +1,186 @@
+/* --- RESET Y BASES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #1a1a1a;
+    line-height: 1.6;
+}
+
+.contenedor {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* --- CABECERA --- */
+header {
+    margin-bottom: 60px;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5rem; /* Letras más grandes */
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-top: 10px;
+}
+
+.volver {
+    text-decoration: none;
+    color: black;
+	font-weight: 500;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.volver:hover {
+    color: #888;
+}
+
+/* --- BLOQUES DE COMPRA --- */
+.bloque-compra {
+    margin-bottom: 40px;
+    padding: 25px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bloque-compra:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+h4 {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+/* --- ITEMS DEL PRODUCTO --- */
+.item-historial {
+    padding: 15px 0;
+}
+
+.item-historial p {
+    font-size: 1.25rem; /* Texto de producto más grande */
+    margin-bottom: 10px;
+}
+
+.item-historial strong {
+    font-weight: 600;
+}
+
+/* --- BOTONES Y ACCIONES --- */
+.acciones {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btn-puntos {
+    background: #000;
+    color: #fff;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-puntos:hover {
+    background: #fff;
+    color: #000;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: black;
+    text-decoration: none;
+    font-size: 1rem;
+	font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.btn-link:hover {
+    color: #888; /* Un toque de rojo sutil para la queja */
+}
+
+/* --- MODAL MINIMALISTA --- */
+.modal-simple {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    width: 90%;
+    max-width: 500px;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    border: 1px solid #eee;
+}
+
+#modal-titulo {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 1rem;
+    resize: none;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+    border-color: #000;
+}
+
+.btn-negro {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.oculto {
+    display: none;
+    opacity: 0;
+}
+
+/* --- ANIMACIÓN DE CARGA SUAVE --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.bloque-compra {
+    animation: fadeIn 0.5s ease forwards;
+}

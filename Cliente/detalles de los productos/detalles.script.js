@@ -174,3 +174,55 @@ añadir.addEventListener("click", () => {
     actualizar();
     alert("Añadido al carrito con éxito");
 });
+
+
+// --- LÓGICA DE RESEÑAS DINÁMICAS ---
+
+function cargarResenas() {
+    // 1. Buscamos el contenedor en el HTML
+    let contenedorHTML = document.getElementById("reseñas"); 
+    if (!contenedorHTML) return; // Si no existe el div, no hace nada
+
+    // 2. Limpiamos por si hay contenido viejo
+    contenedorHTML.innerHTML = "";
+
+    // 3. Obtenemos los datos del LocalStorage
+    let todasResenasRaw = localStorage.getItem("resenasData") || "";
+    
+    if (todasResenasRaw === "") {
+        contenedorHTML.innerHTML = "<p style='color: gray;'>Este producto aún no tiene reseñas. ¡Sé el primero en comprarlo y opinar!</p>";
+        return;
+    }
+
+    // 4. Separamos y filtramos por el título del producto actual
+    let lista = todasResenasRaw.split("#");
+    let hayResenas = false;
+
+    lista.forEach(r => {
+        let datos = r.split("|"); // [0]: Nombre Producto, [1]: Texto
+        
+        // Comparamos con el título que sacamos del catálogo arriba
+        if (datos[0] === producto.titulo) {
+            hayResenas = true;
+            let divResena = document.createElement("div");
+            divResena.className = "reseña-item"; // Para que le des estilo en CSS
+            divResena.style.borderBottom = "1px solid #ddd";
+            divResena.style.padding = "10px 0";
+            divResena.innerHTML = `
+                <p style="margin: 0; font-style: italic;">"${datos[1]}"</p>
+                <small>⭐ Cliente Verificado</small>
+            `;
+            contenedorHTML.appendChild(divResena);
+        }
+    });
+
+    if (!hayResenas) {
+        contenedorHTML.innerHTML = "<p style='color: gray;'>Aún no hay reseñas para este producto.</p>";
+    }
+}
+
+// --- EJECUCIÓN ---
+// Llamamos a la función justo después de cargar los datos del producto
+if (producto) {
+    cargarResenas();
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Compras</title>
+    <link rel="stylesheet" href="carrito.style.css">
+	<link rel="stylesheet" href="historial.style.css">
+</head>
+<body>
+    <div class="contenedor">
+        <header>
+            <a href="../cliente.html" class="volver">← Volver</a>
+            <h1>Historial de Compras</h1>
+        </header>
+
+        <div id="contenedor-historial">
+            </div>
+
+        <div id="modal-accion" class="modal-simple oculto">
+            <h3 id="modal-titulo">Escribir</h3>
+            <textarea id="texto-accion" rows="4" style="width:100%; margin-bottom:10px;"></textarea>
+            <button class="btn-negro" id="btn-enviar">Enviar</button>
+            <button class="btn-link" id="btn-cancelar">Cerrar</button>
+        </div>
+    </div>
+
+    <script src="historial.script.js"></script>
+</body>
+</html>

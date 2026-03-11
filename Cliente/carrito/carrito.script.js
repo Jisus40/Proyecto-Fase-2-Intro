@@ -1,144 +1,135 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. REFERENCIAS AL DOM
     const listaContenedor = document.getElementById("lista-items");
     const resCant = document.getElementById("res-cant");
     const resTotal = document.getElementById("res-total");
-
-    // 2. RECUPERAR LOS DATOS
-    // Muy importante: Usar exactamente 'carritoData'
-    let datosRaw = localStorage.getItem("carritoData") || "";
+    const menuPostCompra = document.getElementById("menu-post-compra");
+    const secciones = document.querySelectorAll('.resumen, .pago, .historial');
 
     function renderizarCarrito() {
-        listaContenedor.innerHTML = ""; // Limpiar antes de empezar
-        
-        // Si no hay nada, avisamos y salimos de la función
-        if (datosRaw === "" || datosRaw === null) {
-            listaContenedor.innerHTML = "<p>El carrito está vacío. ¡Ve a la tienda!</p>";
+        let datosRaw = localStorage.getItem("carritoData") || "";
+        listaContenedor.innerHTML = ""; 
+        if (datosRaw === "") {
+            listaContenedor.innerHTML = "<p>El carrito está vacío.</p>";
             resCant.innerText = "0";
             resTotal.innerText = "0.00$";
             return;
         }
-
-        // PASO A: Separar productos (#)
         let productos = datosRaw.split("#");
         let sumaDinero = 0;
         let sumaUnidades = 0;
-
         productos.forEach(p => {
-            // PASO B: Separar datos del producto (|)
             let info = p.split("|");
-
-            // VALIDACIÓN DE SEGURIDAD: 
-            // Si el pedazo de texto no tiene los 3 datos (nombre, cant, precio), lo ignora
             if (info.length < 3) return; 
-
-            // Crear fila en el HTML
             let itemDiv = document.createElement("div");
             itemDiv.className = "item-carrito";
-            itemDiv.innerHTML = `
-                <span><strong>${info[0]}</strong> (x${info[1]})</span>
-                <span>${info[2]}$</span>
-            `;
+            itemDiv.innerHTML = `<span><strong>${info[0]}</strong> (x${info[1]})</span><span>${info[2]}$</span>`;
             listaContenedor.appendChild(itemDiv);
-
-            // Sumar para el resumen
             sumaUnidades += parseInt(info[1]);
             sumaDinero += parseFloat(info[2]);
         });
-
-        // ACTUALIZAR TOTALES
         resCant.innerText = sumaUnidades;
         resTotal.innerText = sumaDinero.toFixed(2) + "$";
     }
-    
-    const btnUsarPuntos = document.getElementById("btn-usar-puntos");
-    const divInfoPuntos = document.getElementById("info-puntos");
-    
-    let puntosActuales = parseInt(localStorage.getItem("puntosLealtad")) || 0;
 
-    // EVENTO DEL BOTÓN DE PUNTOS
-    btnUsarPuntos.addEventListener("click", () => {
-        // Alternar visibilidad
-        divInfoPuntos.classList.toggle("oculto");
+    function procesarFinalizacion(metodo, nombreCliente = "Usuario Online") {
+        let datosCarrito = localStorage.getItem("carritoData") || "";
+        if (datosCarrito === "") return;
 
-        if (!divInfoPuntos.classList.contains("oculto")) {
-            // Lógica de cálculo
-            let descuento = puntosActuales / 100;
-            let totalOriginal = parseFloat(document.getElementById("res-total").innerText.replace('$', ''));
-            let totalFinal = Math.max(0, totalOriginal - descuento);
-
-            document.getElementById("puntos-disponibles").innerText = puntosActuales;
-            document.getElementById("descuento-aplicado").innerText = descuento.toFixed(2);
-            document.getElementById("nuevo-total-puntos").innerText = totalFinal.toFixed(2);
-            
-            btnUsarPuntos.innerText = "Quitar descuento";
-            localStorage.setItem("descuentoAplicado", "si");
-        } else {
-            btnUsarPuntos.innerText = "Usar mis puntos de lealtad";
-            localStorage.removeItem("descuentoAplicado");
-        }
-    });
-
-    // LÓGICA DE INTERCAMBIO DE FORMULARIOS (Para que no se mezclen)
-    const radioOnline = document.getElementById("p-online");
-    const radioPresencial = document.getElementById("p-presencial");
-    const fOnline = document.getElementById("form-pago");
-    const fPresencial = document.getElementById("msg-presencial");
-
-    radioOnline.addEventListener("change", () => {
-        fOnline.classList.remove("oculto");
-        fPresencial.classList.add("oculto");
-    });
-
-    radioPresencial.addEventListener("change", () => {
-        fOnline.classList.add("oculto");
-        fPresencial.classList.remove("oculto");
-    });
-
-    // BOTONES DE FINALIZAR
-    document.getElementById("btn-pagar-online").addEventListener("click", () => {
-        if(document.getElementById("tarjeta-num").value.length < 10) {
-            alert("Tarjeta inválida"); return;
-        }
-        finalizarCompra();
-    });
-
-    document.getElementById("btn-confirmar-presencial").addEventListener("click", () => {
-        if(document.getElementById("nombre-cliente").value === "") {
-            alert("Ingresa tu nombre"); return;
-        }
-        finalizarCompra();
-    });
-
-    function finalizarCompra() {
-        let totalFactura = parseFloat(document.getElementById("res-total").innerText.replace('$', ''));
-        let puntosGanados = Math.floor(totalFactura * 10);
-        let puntosGuardados = parseInt(localStorage.getItem("puntosLealtad")) || 0;
-        let resultadoPuntos;
+        let totalOriginal = parseFloat(resTotal.innerText.replace('$', ''));
+        let totalPagado = totalOriginal;
+        let ahorro = 0;
 
         if (localStorage.getItem("descuentoAplicado") === "si") {
-            resultadoPuntos = puntosGanados; // Gastó los viejos, solo le quedan los nuevos
-            localStorage.removeItem("descuentoAplicado");
-        } else {
-            resultadoPuntos = puntosGuardados + puntosGanados; // Suma todo
+            totalPagado = parseFloat(document.getElementById("nuevo-total-puntos").innerText);
+            ahorro = totalOriginal - totalPagado;
         }
 
-        localStorage.setItem("puntosLealtad", resultadoPuntos);
+        // Agrupar productos
+        let productosCoche = datosCarrito.split("#");
+        let temporal = {}; 
+        productosCoche.forEach(p => {
+            let info = p.split("|");
+            if (info.length < 3) return;
+            let nombre = info[0], cant = parseInt(info[1]), precio = parseFloat(info[2]);
+            if (temporal[nombre]) {
+                temporal[nombre].cant += cant;
+                temporal[nombre].precio += precio;
+            } else {
+                temporal[nombre] = { cant: cant, precio: precio };
+            }
+        });
+
+        let resumenProductos = "";
+        for (let nombre in temporal) {
+            resumenProductos += `${nombre}|${temporal[nombre].cant}|${temporal[nombre].precio.toFixed(2)}|${ahorro.toFixed(2)}#`;
+        }
+        resumenProductos = resumenProductos.slice(0, -1);
+
+        if (metodo === "online") {
+            // CAMINO ONLINE
+            let historialPrevio = localStorage.getItem("historialData") || "";
+            let historialNuevo = (historialPrevio === "") ? resumenProductos : resumenProductos + "%%" + historialPrevio;
+            localStorage.setItem("historialData", historialNuevo);
+            
+            // Puntos y Menú Post-Venta
+            let puntosGanados = Math.floor(totalPagado * 10);
+            localStorage.setItem("puntosPendientes", puntosGanados);
+            
+            secciones.forEach(s => s.classList.add('oculto'));
+            menuPostCompra.classList.remove('oculto');
+            alert("Pago online procesado con éxito.");
+
+        } else {
+            // CAMINO PRESENCIAL (Cajero)
+            let pendientesPrevios = localStorage.getItem("pedidosPendientes") || "";
+            // Usamos el nombre del cliente y los productos
+            let pedidoParaCaja = `${nombreCliente}|${resumenProductos.replace(/#/g, ";")}|${totalPagado.toFixed(2)}`;
+            
+            let listaActualizada = (pendientesPrevios === "") ? pedidoParaCaja : pedidoParaCaja + "%%" + pendientesPrevios;
+            localStorage.setItem("pedidosPendientes", listaActualizada);
+            
+            alert(`Pedido enviado a nombre de: ${nombreCliente}. Por favor, acérquese a caja para pagar.`);
+            
+            // En lugar de ir al menú post-venta, regresamos a la tienda o limpiamos
+            window.location.href = "../Cliente.html"; 
+        }
+
+        // Limpieza de datos
         localStorage.removeItem("carritoData");
         localStorage.setItem("carrito", 0);
-
-        alert(`¡Compra exitosa! Has ganado ${puntosGanados} puntos.`);
-        window.location.href = "../cliente.html";
+        localStorage.removeItem("descuentoAplicado");
     }
-    
+
+    // Eventos
+    document.getElementById("btn-pagar-online").onclick = () => {
+        if (document.getElementById("tarjeta-num").value.length < 10) return alert("Tarjeta inválida");
+        procesarFinalizacion("online");
+    };
+
+    document.getElementById("btn-confirmar-presencial").onclick = () => {
+        const nombreC = document.getElementById("nombre-cliente").value.trim();
+        if (nombreC === "") return alert("Por favor, ingresa tu nombre.");
+        procesarFinalizacion("presencial", nombreC);
+    };
+
+    // Botones de puntos (solo para online)
+    document.getElementById("btn-reclamar-puntos").onclick = () => {
+        let pendientes = parseInt(localStorage.getItem("puntosPendientes")) || 0;
+        let actuales = parseInt(localStorage.getItem("puntosLealtad")) || 0;
+        localStorage.setItem("puntosLealtad", actuales + pendientes);
+        localStorage.setItem("puntosPendientes", "0");
+        alert("Puntos sumados!");
+    };
+
+    // Cambios de vista Radios
+    document.getElementById("p-online").onchange = () => {
+        document.getElementById("form-pago").classList.remove("oculto");
+        document.getElementById("msg-presencial").classList.add("oculto");
+    };
+    document.getElementById("p-presencial").onchange = () => {
+        document.getElementById("form-pago").classList.add("oculto");
+        document.getElementById("msg-presencial").classList.remove("oculto");
+    };
+
     renderizarCarrito();
 });
-
-// TAMBIÉN PARA EL PAGO PRESENCIAL (si quieres que se vacíe al confirmar)
-    const btnConfirmarPresencial = document.querySelector("#msg-presencial .btn-negro");
-    btnConfirmarPresencial.addEventListener("click", () => {
-        alert("¡Pedido confirmado! Te esperamos en nuestra sede.");
-        localStorage.removeItem("carritoData");
-        localStorage.setItem("carrito", "0");
-        window.location.href = "../cliente.html";
-    });

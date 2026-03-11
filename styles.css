@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
 	background-color: #FFFAFA;
     font-family: sans-serif;
@@ -190,4 +191,197 @@ footer {
 	align-items: center;
 	background-color: #F8F8FF;
 	height: 7vh;
+=======
+body {
+	background-color: #FFFAFA;
+    font-family: sans-serif;
+}
+
+.seccion{
+	margin-top: 30px;
+}
+
+.Hero{
+	height: 80vh;
+	background-image: url("fondo.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: black;
+	font-size: 2rem;
+}
+
+.Hero p{
+    font-size: 1.8rem;
+}
+
+.texto{
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 25px;
+}
+
+.botones{
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-between;
+	width: 30%;
+}
+
+button{
+	color: white;
+	background-color: black;
+	border-radius: 30px;
+	border-color: white;
+	padding: 3%;
+	font-size: 1.2rem;
+}
+
+
+#iniciar-sesion{
+	display: none;
+	justify-content: center;
+	align-items: center;
+	margin-top: 30px;
+	height: 40vh;
+}
+
+#formulario{
+	display: none;
+	flex-direction: column;
+	justify-content: space-around;
+	height: 30vh;
+	border: 2px solid black;
+	width: 40%;
+	padding: 10px;
+}
+
+input {
+	border: 2px solid black;
+	border-radius: 20px;
+	background-color: white;
+	color: black;
+	font-size: 1.2rem;
+	padding: 10px;
+}
+
+
+.sec2 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+}
+
+.producto{
+	display: flex;
+	width: 50%;
+	align-items: center;
+	background-color: #F8F8FF;
+	box-shadow: 5px 5px 10px gray;
+	margin-top: 30px;
+}
+
+.producto:hover{
+    padding: 10px;
+}
+
+.producto p {
+	width: 40%;
+	font-size: 1.2rem;
+	margin: auto 20px;
+}
+
+.pr2, .pr4{
+	margin-left: 40%;
+	flex-direction: row-reverse;
+	box-shadow: -5px 5px 10px gray;
+}
+
+.pr1, .pr3, .pr5 {
+	margin-right: 40%;
+}
+
+.img1{
+	background-image: url("https://www.burgerfi.com/wp-content/uploads/2025/01/Burgerfi-burger-with-fries-and-soda.webp");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 40vh;
+	width: 60%;
+}
+
+.img2{
+	background-image: url("https://www.elespectador.com/resizer/-V8Vt7vSho4xhtWnDewlnsDbZDU=/arc-anglerfish-arc2-prod-elespectador/public/2EFJ2P7JPVGURJLT7QLCSD6P74.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 40vh;
+	width: 60%;
+}
+
+.img3{
+	background-image: url("https://tropimarkt.com/cdn/shop/articles/tequenos_tropimarkt.png?v=1674937147");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 40vh;
+	width: 60%;
+}
+
+.img4{
+	background-image: url("https://i.pinimg.com/736x/6b/01/6e/6b016ed0fc20f3c8dacdc3f804f98456.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 40vh;
+	width: 60%;
+}
+
+.img5{
+	background-image: url("https://imag.bonviveur.com/emplatado-final-de-las-salchipapas.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 40vh;
+	width: 60%;
+}
+
+.reseñas {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: 1.4rem;
+}
+
+.contenReseña {
+	display: flex;
+	justify-content: space-around;
+}
+
+.reseña {
+	width: 19%;
+	text-align: center;
+	background-color: #F8F8FF;
+	border: 4px black solid;
+	border-radius: 10px;
+	font-size: 1.2rem;
+}
+
+.reseña:hover{
+    padding: 10px;
+}
+
+footer {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #F8F8FF;
+	height: 7vh;
+>>>>>>> 040ef4d (commit 5)
 }

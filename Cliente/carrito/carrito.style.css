@@ -40,3 +40,24 @@ input[type="text"] { padding: 12px; border: 1px solid #ddd; outline: none; }
     margin-bottom: 5px;
     font-size: 0.9rem;
 }
+
+/* Nuevos estilos para el menú post-compra */
+#menu-post-compra {
+    text-align: center;
+    padding: 30px;
+    border: 2px solid #000;
+    margin-top: 20px;
+    background: #fff;
+}
+
+.menu-acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.menu-acciones .btn-negro {
+    text-decoration: none;
+    text-align: center;
+}
