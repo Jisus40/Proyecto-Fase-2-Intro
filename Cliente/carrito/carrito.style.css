@@ -1,4 +1,8 @@
-body { font-family: sans-serif; background: #fff; color: #1a1a1a; padding: 40px; }
+*{
+	 font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body { background: #fff; color: #1a1a1a; padding: 40px; }
 .contenedor { max-width: 500px; margin: 0 auto; }
 header { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 30px; }
 header a { color: #888; text-decoration: none; font-size: 14px; }
@@ -60,4 +64,47 @@ input[type="text"] { padding: 12px; border: 1px solid #ddd; outline: none; }
 .menu-acciones .btn-negro {
     text-decoration: none;
     text-align: center;
+}
+
+/* --- RESPONSIVIDAD (MÓVILES) --- */
+@media (max-width: 600px) {
+    body {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    /* El resumen del carrito ocupará todo el ancho */
+    .resumen, .pago, .historial {
+        width: 100% !important;
+        padding: 15px !important;
+    }
+
+    /* Los items del carrito se verán uno sobre otro */
+    .item-carrito {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        padding: 10px 0;
+    }
+
+    /* Botones más grandes para facilitar el click táctil */
+    button, .btn-puntos, .btn-negro {
+        width: 100%;
+        padding: 18px !important;
+        font-size: 1.1rem !important;
+    }
+
+    /* Ajuste de los formularios de pago */
+    input[type="text"], input[type="number"], textarea {
+        font-size: 16px; /* Evita que el iPhone haga zoom automático */
+        padding: 12px;
+    }
+
+    /* Menú post-venta más compacto */
+    #menu-post-compra {
+        padding: 20px;
+    }
 }

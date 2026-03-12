@@ -1,3 +1,7 @@
+* {
+	 font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
 body {
 	background-color: #FFFAFA;
     font-family: sans-serif;
@@ -9,7 +13,7 @@ body {
 
 .Hero{
 	height: 80vh;
-	background-image: url("imagenes/fondo.jpg");
+	background-image: url("imagenes/grande.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -25,16 +29,18 @@ body {
     font-size: 1.8rem;
 }
 
-.texto{
-	text-align: center;
-	background-color: rgba(255, 255, 255, 0.5);
-	border-radius: 25px;
+.texto {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 25px;
+    /* Evita parpadeos en el renderizado */
+    transform: translateZ(0); 
 }
 
-.botones{
+.boton{
 	margin-top: 20px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	width: 30%;
 }
 
@@ -57,7 +63,7 @@ button{
 }
 
 #formulario{
-	display: none;
+	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	height: 30vh;
@@ -94,6 +100,10 @@ input {
 
 .producto, .reseña {
     transition: transform 0.3s ease;
+    /* MÁGIA AQUÍ: Fuerza el uso de la GPU */
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform; 
 }
 
 .producto:hover, .reseña:hover {
@@ -118,7 +128,7 @@ input {
 }
 
 .img1{
-	background-image: url("imagenes/hamburguesa.png");
+	background-image: url("imagenes/hamburguesa.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -162,6 +172,12 @@ input {
 	width: 60%;
 }
 
+/* Mejora el rendimiento de las imágenes de fondo */
+.img1, .img2, .img3, .img4, .img5 {
+    background-attachment: scroll; /* Asegúrate de que NO sea fixed */
+    will-change: auto;
+}
+
 .reseñas {
 	display: flex;
 	flex-direction: column;
@@ -190,3 +206,78 @@ footer {
 	align-items: center;
 	background-color: #F8F8FF;
 	height: 7vh;
+}
+
+/* --- RESPONSIVIDAD PARA MÓVILES (Pantallas menores a 768px) --- */
+@media (max-width: 768px) {
+    
+    /* 1. Ajuste del Hero (Bienvenida) */
+    .Hero {
+        height: 60vh; /* Un poco más corto en móvil */
+        padding: 20px;
+        font-size: 1.2rem; /* Reducimos el tamaño de letra */
+    }
+
+    .Hero p {
+        font-size: 1.1rem;
+    }
+
+    .boton {
+        width: 80%; /* Botón más ancho para que sea fácil de tocar */
+    }
+
+    button {
+        padding: 15px;
+        width: 100%;
+    }
+
+    /* 2. Ajuste del Formulario de Inicio de Sesión */
+    #formulario {
+        width: 90%; /* Casi todo el ancho de la pantalla */
+        height: auto;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    /* 3. Ajuste de los Productos (La parte más importante) */
+    .sec2 {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .producto {
+        width: 95% !important; /* Que ocupen casi todo el ancho */
+        margin: 20px auto !important; /* Centrados y sin desplazamientos laterales */
+        flex-direction: column !important; /* Imagen arriba, texto abajo */
+        height: auto;
+    }
+
+    .img1, .img2, .img3, .img4, .img5 {
+        width: 100%; /* Imagen a ancho completo */
+        height: 250px; /* Altura fija para las fotos */
+    }
+
+    .producto p {
+        width: 90%; /* Texto a ancho completo */
+        padding: 20px;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    /* 4. Ajuste de las Reseñas */
+    .contenReseña {
+        flex-direction: column; /* Una debajo de otra */
+        align-items: center;
+        gap: 20px;
+    }
+
+    .reseña {
+        width: 90%; /* Reseñas más anchas */
+        padding: 15px;
+    }
+
+    /* 5. Ajustes de texto generales */
+    h1 {
+        font-size: 1.8rem;
+    }
+}

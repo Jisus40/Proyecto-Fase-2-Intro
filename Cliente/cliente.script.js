@@ -1,3 +1,12 @@
+(function verificarAcceso() {
+    // Verificamos si la llave existe
+    if (localStorage.getItem("sesionActiva") !== "true") {
+        alert("Acceso denegado. Por favor, inicie sesión.");
+        // Ajusta la ruta para salir de la carpeta Cliente y llegar al index
+        window.location.href = "../index.html"; 
+    }
+})();
+
 let productos = document.querySelectorAll(".producto");
 
 productos.forEach(producto => {
@@ -13,3 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
         contador.textContent = localStorage.getItem('carrito') || 0;
     }
 });
+
+document.getElementById("cerrarSesion").onclick = () => {
+    // Quitamos la llave pero NO borramos historial ni puntos
+    localStorage.removeItem("sesionActiva");
+    
+    alert("Sesión cerrada. ¡Vuelva pronto!");
+    window.location.href = "../index.html";
+};
