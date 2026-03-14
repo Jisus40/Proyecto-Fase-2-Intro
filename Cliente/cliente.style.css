@@ -62,9 +62,8 @@ header {
     right: -10px;
 }
 
-.usuar-icono {
+.usuario {
     font-size: 2rem;
-    cursor: pointer;
     display: flex;
     align-items: center;
 }
@@ -79,13 +78,18 @@ h2 {
     text-align: center;
 }
 
-.catalogo {
+#catalogo {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 20px;
     width: 100%;
     padding: 30px;
+}
+
+#catalogo p {
+	text-align: center;
+	width: 100%;
 }
 
 .producto {

@@ -3,43 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control | Administración</title>
+    <title>Administración</title>
     <link rel="stylesheet" href="admin.style.css">
 </head>
 <body>
-    <header class="admin-header">
+    <header class="header">
         <div class="logo">
             <h1>Admin<span>Panel</span></h1>
         </div>
-        <button id="btn-cerrar-sesion" class="btn-logout">Cerrar Sesión</button>
+        <button id="cerrar-sesion">Cerrar Sesión</button>
     </header>
 
-    <main class="contenedor-admin">
+    <main class="contenedor">
         <header class="bienvenida">
             <h2>Bienvenido, Administrador</h2>
             <p>Seleccione una sección para gestionar el sistema.</p>
         </header>
 
-        <div class="menu-flex">
-            <div class="card-admin" onclick="window.location.href = ('gestionar%20menu/gestionar-menu.html')">
+        <div class="menu">
+            <div class="card" onclick="window.location.href = ('gestionar%20menu/gestionar-menu.html')">
                 <div class="icon">🍔</div>
                 <h3>Gestionar Menú</h3>
                 <p>Agregar, editar o eliminar productos y precios.</p>
             </div>
 
-            <div class="card-admin" onclick="window.location.href = ('gestionar%20usuarios/gestionar-usuarios.html')">
+            <div class="card" onclick="window.location.href = ('gestionar%20usuarios/gestionar-usuarios.html')">
                 <div class="icon">👥</div>
                 <h3>Cuentas de Usuario</h3>
                 <p>Controlar accesos, roles y registros de clientes.</p>
             </div>
 
-            <div class="card-admin" onclick="window.location.href = ('gestionar%20reseñas/gestionar-reseñas.html')">
+            <div class="card" onclick="window.location.href = ('gestionar%20reseñas/gestionar-reseñas.html')">
                 <div class="icon">⭐</div>
                 <h3>Gestionar Reseñas</h3>
                 <p>Moderar comentarios y feedback de los clientes.</p>
             </div>
 
-            <div class="card-admin" onclick="window.location.href = ('gestionar%20lealtad/gestionar-lealtad.html')">
+            <div class="card" onclick="window.location.href = ('gestionar%20lealtad/gestionar-lealtad.html')">
                 <div class="icon">🏆</div>
                 <h3>Programa de Lealtad</h3>
                 <p>Configurar puntos, recompensas y promociones.</p>

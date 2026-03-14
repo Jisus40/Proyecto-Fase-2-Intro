@@ -2,40 +2,121 @@
 	 font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-body { background: #fff; color: #1a1a1a; padding: 40px; }
-.contenedor { max-width: 500px; margin: 0 auto; }
-header { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 30px; }
-header a { color: #888; text-decoration: none; font-size: 14px; }
-
-.resumen { background: #f9f9f9; padding: 20px; margin-bottom: 30px; }
-.fila { display: flex; justify-content: space-between; margin: 10px 0; }
-.total { font-weight: bold; font-size: 20px; border-top: 1px solid #eee; pt: 10px; }
-
-.opciones { margin: 15px 0; }
-.formulario { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-.oculto { display: none; }
-
-input[type="text"] { padding: 12px; border: 1px solid #ddd; outline: none; }
-.btn-negro { background: #000; color: #fff; border: none; padding: 15px; cursor: pointer; }
-.btn-negro:hover { background: #333; }
-
-.historial { margin-top: 40px; }
-.item-carrito { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
-.btn-link { background: none; border: none; color: #999; text-decoration: underline; cursor: pointer; margin-top: 10px; }
-
-.btn-puntos {
-    background: #e0e0e0;
-    color: #000;
-    border: 1px solid #000;
-    padding: 8px 15px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-bottom: 10px;
-    width: 100%;
+body { 
+	background: #fff; 
+	color: #1a1a1a; 
+	padding: 40px; 
 }
 
-.btn-puntos:hover {
-    background: #d0d0d0;
+.contenedor { 
+	max-width: 500px; 
+	margin: 0 auto; 
+}
+
+header { 
+	border-bottom: 2px solid #000; 
+	padding-bottom: 10px; 
+	margin-bottom: 30px; 
+}
+
+header a { 
+	color: #000; 
+	text-decoration: none; 
+	font-size: 1rem;
+	font-weight: 400;
+}
+
+.resumen { 
+	background: #f9f9f9; 
+	padding: 20px; 
+	margin-bottom: 30px; 
+}
+
+.cantidadP { 
+	display: flex; 
+	justify-content: space-between; 
+	margin: 10px 0; 
+}
+
+.total { 
+	font-weight: bold; 
+	font-size: 20px;
+	border-top: 1px solid #eee; 
+	pt: 10px; 
+	display: flex; 
+	justify-content: space-between; 
+	margin: 10px 0;
+}
+
+.opciones { 
+	margin: 15px 0; 
+}
+
+.formulario { 
+	display: flex; 
+	flex-direction: column; 
+	gap: 10px; 
+	margin-top: 15px; 
+}
+
+#infoP { 
+	display: none; 
+}
+
+input[type="text"] { 
+	padding: 12px; 
+	border: 1px solid #ddd; 
+	outline: none; 
+}
+
+.btn-negro { 
+	background: #000; 
+	color: #fff; 
+	border: none; 
+	padding: 15px; 
+	cursor: pointer; 
+}
+
+.btn-negro:hover { 
+	background: #333; 
+}
+
+.historial { 
+	margin-top: 40px; 
+	display: flex;
+	flex-direction: column;
+}
+
+.item-carrito { 
+	display: flex; 
+	justify-content: space-between; 
+	padding: 10px 0; 
+	border-bottom: 1px solid #f0f0f0; }
+
+.btn-link {
+	background: none;
+	border: none; 
+	color: #000; 
+	text-decoration: none; 
+	cursor: pointer; 
+	margin-top: 10px;
+	font-size: 1rem;
+	font-weight: 500;
+}
+
+.btn-puntos {
+    padding: 8px 15px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 10px;
+    width: 100%;
+	background: #000; 
+	color: #fff; 
+	border: none;
+}
+
+.btn-puntos:hover { 
+	background: #333; 
 }
 
 .formulario label {
@@ -45,8 +126,12 @@ input[type="text"] { padding: 12px; border: 1px solid #ddd; outline: none; }
     font-size: 0.9rem;
 }
 
-/* Nuevos estilos para el menú post-compra */
-#menu-post-compra {
+#presencial{
+	display: none;
+}
+
+#menu {
+	display: none;
     text-align: center;
     padding: 30px;
     border: 2px solid #000;
@@ -61,12 +146,12 @@ input[type="text"] { padding: 12px; border: 1px solid #ddd; outline: none; }
     margin-top: 20px;
 }
 
+
 .menu-acciones .btn-negro {
     text-decoration: none;
     text-align: center;
 }
 
-/* --- RESPONSIVIDAD (MÓVILES) --- */
 @media (max-width: 600px) {
     body {
         padding: 15px;
@@ -76,13 +161,12 @@ input[type="text"] { padding: 12px; border: 1px solid #ddd; outline: none; }
         font-size: 1.8rem;
     }
 
-    /* El resumen del carrito ocupará todo el ancho */
-    .resumen, .pago, .historial {
+    .resumen, .pago, .historial, .header {
         width: 100% !important;
         padding: 15px !important;
+		box-sizing: border-box;
     }
 
-    /* Los items del carrito se verán uno sobre otro */
     .item-carrito {
         flex-direction: column;
         align-items: flex-start;
@@ -90,21 +174,18 @@ input[type="text"] { padding: 12px; border: 1px solid #ddd; outline: none; }
         padding: 10px 0;
     }
 
-    /* Botones más grandes para facilitar el click táctil */
     button, .btn-puntos, .btn-negro {
         width: 100%;
         padding: 18px !important;
         font-size: 1.1rem !important;
     }
 
-    /* Ajuste de los formularios de pago */
     input[type="text"], input[type="number"], textarea {
-        font-size: 16px; /* Evita que el iPhone haga zoom automático */
+        font-size: 16px;
         padding: 12px;
     }
 
-    /* Menú post-venta más compacto */
-    #menu-post-compra {
+    #menu {
         padding: 20px;
     }
 }

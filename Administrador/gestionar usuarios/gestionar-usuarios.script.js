@@ -1,52 +1,50 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const listaTabla = document.getElementById("lista-bloqueados");
-    const inputUsuario = document.getElementById("usuario-a-bloquear");
-    const btnAccion = document.getElementById("btn-bloquear-accion");
+    let lista = document.getElementById("lista-bloqueados");
+    let usuario = document.getElementById("usuario-a-bloquear");
+    let bloquear = document.getElementById("btn-bloquear");
 
     function cargarBloqueados() {
-        let datosRaw = localStorage.getItem("usuariosBloqueados") || "";
-        listaTabla.innerHTML = "";
+        let datos = localStorage.getItem("bloqueados") || "";
+        lista.innerHTML = "";
 
-        if (datosRaw === "") {
-            listaTabla.innerHTML = "<tr><td colspan='2'>No hay usuarios bloqueados.</td></tr>";
+        if (datos === "") {
+            lista.innerHTML = "<tr><td colspan='2'>No hay usuarios bloqueados.</td></tr>";
             return;
         }
 
-        let bloqueados = datosRaw.split("#");
+        let bloqueados = datos.split("#");
         bloqueados.forEach((user, index) => {
             let fila = document.createElement("tr");
             fila.innerHTML = `
                 <td>${user}</td>
                 <td><button class="btn-desbloquear" onclick="desbloquear(${index})">Levantar Bloqueo</button></td>
             `;
-            listaTabla.appendChild(fila);
+            lista.appendChild(fila);
         });
     }
 
-  // Dentro de tu gestionar-usuarios.js, en la parte donde bloqueas:
-btnAccion.onclick = () => {
-    // Limpiamos comillas antes de guardar
-    let user = inputUsuario.value.trim().replace(/['"]+/g, ''); 
+bloquear.onclick = () => {
+    let user = usuario.value.trim().replace(/['"]+/g, ''); 
     
     if (user === "") return;
 
-    let datosRaw = localStorage.getItem("usuariosBloqueados") || "";
-    let bloqueados = datosRaw === "" ? [] : datosRaw.replace(/['"]+/g, '').split("#");
+    let datos = localStorage.getItem("bloqueados") || "";
+    let bloqueados = datos === "" ? [] : datos.replace(/['"]+/g, '').split("#");
 
     if (bloqueados.includes(user)) {
         alert("Este usuario ya está bloqueado.");
     } else {
         bloqueados.push(user);
-        localStorage.setItem("usuariosBloqueados", bloqueados.join("#"));
-        inputUsuario.value = "";
+        localStorage.setItem("bloqueados", bloqueados.join("#"));
+        usuario.value = "";
         cargarBloqueados();
     }
 };
 
     window.desbloquear = (index) => {
-        let bloqueados = localStorage.getItem("usuariosBloqueados").split("#");
+        let bloqueados = localStorage.getItem("bloqueados").split("#");
         bloqueados.splice(index, 1);
-        localStorage.setItem("usuariosBloqueados", bloqueados.join("#"));
+        localStorage.setItem("bloqueados", bloqueados.join("#"));
         cargarBloqueados();
     };
 

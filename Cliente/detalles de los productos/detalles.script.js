@@ -1,9 +1,7 @@
-// 1. OBTENCIÓN DE PARÁMETROS URL
 let parametros = window.location.search;
 let url = new URLSearchParams(parametros);
-const idProducto = url.get('id');
+let idProducto = url.get('id');
 
-// 2. CATÁLOGO FIJO (Tus 10 productos originales)
 let catalogo = {
     "pr1": {
         titulo: "Empanadas",
@@ -87,12 +85,9 @@ let catalogo = {
     }
 };
 
-// 3. SELECCIÓN DE PRODUCTO
 let producto = catalogo[idProducto];
 
-// 4. LÓGICA DE CONTROL DE PANTALLA
 if (producto) {
-    // Si el producto está en el catálogo fijo, llenamos el HTML
     document.getElementById('titulo').innerText = producto.titulo;
     document.getElementById('imagen').style.backgroundImage = `url('${producto.imagen}')`;
     document.getElementById("descripcion").innerText = producto.descripcion;
@@ -100,46 +95,43 @@ if (producto) {
     document.getElementById("disponible").innerHTML = producto.disponible;
     document.getElementById("total").innerHTML = producto.total;
     
-    let cantidadInput = document.getElementById("cantidad");
-    cantidadInput.max = producto.disponible; 
-    cantidadInput.min = 1;
+    let cantidad = document.getElementById("cantidad");
+    cantidad.max = producto.disponible; 
+    cantidad.min = 1;
 
-    // Ejecutamos las funciones que dependen de que el producto exista
-    inicializarCarrito();
-    cargarResenas();
+    agregar();
+    cargarReseñas();
 
 } else {
-    // Si NO está en el catálogo fijo, revisamos si viene del Admin (localStorage)
-    let datosAdmin = localStorage.getItem("productosData") || "";
-    let existeEnAdmin = datosAdmin.split("#").some(p => p.split("|")[0] === idProducto);
+    let datos = localStorage.getItem("productos") || "";
+    let otroP = datos.split("#").some(p => p.split("|")[0] === idProducto);
 
-    if (existeEnAdmin) {
+    if (otroP) {
         document.body.innerHTML = `
-            <div style="text-align:center; margin-top:100px; font-family:sans-serif; padding: 20px;">
-                <h1 style="color: #2c3e50;">📦 Producto en proceso de almacenamiento</h1>
-                <p style="color: #7f8c8d;">Este producto ha sido añadido recientemente al menú y sus detalles (precio y stock) se están actualizando.</p>
+            <div class="otroDiv">
+                <h1>📦 Producto en proceso de almacenamiento</h1>
+                <p>Este producto ha sido añadido recientemente al menú y sus detalles (precio y stock) se están actualizando.</p>
                 <br>
-                <a href="../cliente.html" style="display:inline-block; padding:10px 20px; background:#2c3e50; color:white; text-decoration:none; border-radius:5px;">Volver al catálogo</a>
+                <a href="../cliente.html">Volver al catálogo</a>
             </div>
         `;
     } else {
-        document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px;'>Error 404: Producto no encontrado</h1>";
+        document.body.innerHTML = "<h1 class='error'>Producto no encontrado</h1>";
     }
 }
 
-// 5. LÓGICA DEL CARRITO (Solo se ejecuta si el producto es válido)
-function inicializarCarrito() {
+function agregar() {
     let contador = document.getElementById("contador");
     let cantidad = document.getElementById("cantidad");
     let total = document.getElementById("total");
     let añadir = document.getElementById("añadir");
     let precioBase = parseFloat(producto.precio.replace('$', ''));
 
-    function actualizarContadorVisual() {
+    function actualizar() {
         let carrito = localStorage.getItem('carrito') || 0;
         if(contador) contador.textContent = carrito;
     }
-    actualizarContadorVisual();
+    actualizar();
 
     cantidad.addEventListener("input", () => {
         let cant = parseInt(cantidad.value);
@@ -152,37 +144,37 @@ function inicializarCarrito() {
     });
 
     añadir.addEventListener("click", () => {
-        let cantidadSeleccionada = parseInt(cantidad.value);
-        let stockDisponible = parseInt(producto.disponible);
+        let seleccionada = parseInt(cantidad.value);
+        let disponible = parseInt(producto.disponible);
         
-        if (cantidadSeleccionada > stockDisponible) {
-            alert(`Lo sentimos, solo quedan ${stockDisponible} unidades disponibles.`);
-            cantidad.value = stockDisponible;
+        if (seleccionada > disponible) {
+            alert(`Lo sentimos, solo quedan ${disponible} unidades disponibles.`);
+            cantidad.value = disponible;
             return; 
         }
         
-        if (isNaN(cantidadSeleccionada) || cantidadSeleccionada < 1) return;
+        if (isNaN(seleccionada) || seleccionada < 1) return;
 
-        let carritoDatosP = localStorage.getItem('carritoData') || "";
-        let productosEnCarrito = carritoDatosP ? carritoDatosP.split("#") : [];
-        let productoEncontrado = false;
+        let carritoDatos = localStorage.getItem('carritoData') || "";
+        let enCarrito = carritoDatos ? carritoDatos.split("#") : [];
+        let encontrado = false;
         let nuevoCarrito = [];
 
-        for (let i = 0; i < productosEnCarrito.length; i++) {
-            let datos = productosEnCarrito[i].split("|"); 
+        for (let i = 0; i < enCarrito.length; i++) {
+            let datos = enCarrito[i].split("|"); 
             if (datos[0] === producto.titulo) {
-                let nuevaCant = parseInt(datos[1]) + cantidadSeleccionada;
-                let nuevoTotal = (parseFloat(datos[2]) + (precioBase * cantidadSeleccionada)).toFixed(2);
+                let nuevaCant = parseInt(datos[1]) + seleccionada;
+                let nuevoTotal = (parseFloat(datos[2]) + (precioBase * seleccionada)).toFixed(2);
                 nuevoCarrito.push(`${datos[0]}|${nuevaCant}|${nuevoTotal}`);
-                productoEncontrado = true;
+                encontrado = true;
             } else {
-                nuevoCarrito.push(productosEnCarrito[i]);
+                nuevoCarrito.push(enCarrito[i]);
             }
         }
 
-        if (!productoEncontrado) {
-            let totalFila = (precioBase * cantidadSeleccionada).toFixed(2);
-            nuevoCarrito.push(`${producto.titulo}|${cantidadSeleccionada}|${totalFila}`);
+        if (!encontrado) {
+            let totalFila = (precioBase * seleccionada).toFixed(2);
+            nuevoCarrito.push(`${producto.titulo}|${seleccionada}|${totalFila}`);
         }
 
         localStorage.setItem('carritoData', nuevoCarrito.join("#"));
@@ -191,44 +183,41 @@ function inicializarCarrito() {
         nuevoCarrito.forEach(p => totalItems += parseInt(p.split("|")[1]));
         localStorage.setItem('carrito', totalItems);
         
-        actualizarContadorVisual();
+        actualizar();
         alert("Añadido al carrito con éxito");
     });
 }
 
-// 6. LÓGICA DE RESEÑAS
-function cargarResenas() {
-    let contenedorHTML = document.getElementById("reseñas"); 
-    if (!contenedorHTML) return; 
+function cargarReseñas() {
+    let contenedor = document.getElementById("reseñas"); 
+    if (!contenedor) return; 
 
-    contenedorHTML.innerHTML = "";
-    let todasResenasRaw = localStorage.getItem("resenasData") || "";
+    contenedor.innerHTML = "";
+    let todas = localStorage.getItem("reseñas") || "";
     
-    if (todasResenasRaw === "") {
-        contenedorHTML.innerHTML = "<p style='color: gray;'>Este producto aún no tiene reseñas. ¡Sé el primero en opinar!</p>";
+    if (todas === "") {
+        contenedor.innerHTML = "<p style='color: gray;'>Este producto aún no tiene reseñas. ¡Sé el primero en opinar!</p>";
         return;
     }
 
-    let lista = todasResenasRaw.split("#");
-    let hayResenas = false;
+    let lista = todas.split("#");
+    let hayReseñas = false;
 
     lista.forEach(r => {
         let datos = r.split("|"); 
         if (datos[0] === producto.titulo) {
-            hayResenas = true;
-            let divResena = document.createElement("div");
-            divResena.className = "reseña-item";
-            divResena.style.borderBottom = "1px solid #ddd";
-            divResena.style.padding = "10px 0";
-            divResena.innerHTML = `
-                <p style="margin: 0; font-style: italic;">"${datos[1]}"</p>
+            hayReseñas = true;
+            let divReseña = document.createElement("div");
+            divReseña.className = "reseña-item";
+            divReseña.innerHTML = `
+                <p>"${datos[1]}"</p>
                 <small>⭐ Cliente Verificado</small>
             `;
-            contenedorHTML.appendChild(divResena);
+            contenedor.appendChild(divReseña);
         }
     });
 
-    if (!hayResenas) {
-        contenedorHTML.innerHTML = "<p style='color: gray;'>Aún no hay reseñas para este producto.</p>";
+    if (!hayReseñas) {
+        contenedor.innerHTML = "<p style='color: gray;'>Aún no hay reseñas para este producto.</p>";
     }
 }

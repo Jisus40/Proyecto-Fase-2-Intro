@@ -2,62 +2,64 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Carrito Minimalista</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrio</title>
     <link rel="stylesheet" href="carrito.style.css">
 </head>
 <body>
     <div class="contenedor">
-        <header>
+        <header class="header">
             <a href="../cliente.html">← Volver</a>
             <h1>Tu Carrito</h1>
         </header>
 
         <section class="resumen">
-            <div class="fila"><span>Cantidad de productos:</span> <span id="res-cant">0</span></div>
-            <div class="fila total"><span>Total a pagar:</span> <span id="res-total">0.00$</span></div>
+            <div class="cantidadP">
+            	<span>Cantidad de productos:</span> <span id="res-cant">0</span>
+            </div>
+            <div class="total">
+            	<span>Total a pagar:</span> <span id="res-total">0.00$</span>
+            </div>
         </section>
         
         <section class="pago">
-    <h3>Método de Pago</h3>
-    <div class="opciones">
-        <label><input type="radio" name="pago" id="p-online" checked> En línea</label>
-        <label><input type="radio" name="pago" id="p-presencial"> Presencial</label>
-    </div>
+    		<h3>Método de Pago</h3>
+   			<div class="opciones">
+        		<label><input type="radio" name="pago" id="p-online" checked> En línea</label>
+        		<label><input type="radio" name="pago" id="p-presencial"> Presencial</label>
+    		</div>
 
-    <div class="puntos-contenedor">
-        <button type="button" id="btn-usar-puntos" class="btn-puntos">
-            Usar mis puntos de lealtad
-        </button>
+    		<div class="puntos">
+        		<button type="button" id="usarP" class="btn-puntos">Usar mis puntos de lealtad</button>
         
-        <div id="info-puntos" class="oculto">
-            <p>Puntos: <span id="puntos-disponibles">0</span></p>
-            <p>Descuento: <span id="descuento-applied">0.00</span>$</p>
-            <p><strong>Total con puntos: <span id="nuevo-total-puntos">0.00</span>$</strong></p>
-        </div>
-    </div>
+				<div id="infoP">
+					<p>Puntos: <span id="puntosD">0</span></p>
+					<p>Descuento: <span id="descuento">0.00</span>$</p>
+					<p><strong>Total con puntos: <span id="totalP">0.00</span>$</strong></p>
+				</div>
+   			 </div>
 
-    <div id="form-pago" class="formulario">
-        <label>Datos de tarjeta:</label>
-        <input type="text" id="tarjeta-num" placeholder="0000 0000 0000 0000">
-        <button class="btn-negro" id="btn-pagar-online">Pagar en línea</button>
-    </div>
+    		 <div id="online" class="formulario">
+				<label>Datos de tarjeta:</label>
+				<input type="text" id="tarjeta" placeholder="0000 0000 0000 0000">
+				<button class="btn-negro" id="btn-pagar-online">Pagar en línea</button>
+			</div>
     
-    <div id="msg-presencial" class="formulario oculto">
-        <label>Datos de retiro:</label>
-        <input type="text" id="nombre-cliente" placeholder="Nombre completo">
-        <button class="btn-negro" id="btn-confirmar-presencial">Confirmar Pedido</button>
-    </div>
-</section>
+			<div id="presencial" class="formulario">
+				<label>Datos de retiro:</label>
+				<input type="text" id="nombre-cliente" placeholder="Nombre completo">
+				<button class="btn-negro" id="btn-confirmar-presencial">Confirmar Pedido</button>
+			</div>
+		</section>
         
         <section class="historial">
             <h3>Productos añadidos</h3>
-            <div id="lista-items">
-                </div>
-            <button id="btn-vaciar" class="btn-link">Vaciar todo</button>
+            <div id="lista-items"></div>
+            <button id="vaciar" class="btn-link">Vaciar todo</button>
         </section>
     </div>
     
-    <section id="menu-post-compra" class="oculto">
+    <section id="menu">
         <h3>¿Qué deseas hacer ahora?</h3>
         <div class="menu-acciones">
             <a href="../historial/historial.html" class="btn-negro">Ver Historial</a>
@@ -67,6 +69,6 @@
         </div>
     </section>
     
-    <script src="carrito.script.js"></script>
+	<script src="carrito.script.js"></script>
 </body>
 </html>

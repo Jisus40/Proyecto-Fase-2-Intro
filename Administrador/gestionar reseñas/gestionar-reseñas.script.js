@@ -1,21 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const contenedorTabla = document.getElementById("lista-resenas-admin");
+    let contenedor = document.getElementById("lista");
 
-    function cargarResenasAdmin() {
-        // 1. Obtener los datos con los que trabaja tu página de detalles
-        let datosRaw = localStorage.getItem("resenasData") || "";
-        contenedorTabla.innerHTML = "";
+    function reseñas() {
+        let datos = localStorage.getItem("reseñas") || "";
+        contenedor.innerHTML = "";
 
-        if (datosRaw === "") {
-            contenedorTabla.innerHTML = "<tr><td colspan='3' class='empty-msg'>No hay reseñas registradas por clientes.</td></tr>";
+        if (datos === "") {
+            contenedor.innerHTML = "<tr><td colspan='3' class='empty-msg'>No hay reseñas registradas por clientes.</td></tr>";
             return;
         }
 
-        // 2. Separar por # para obtener cada reseña individual
-        let lista = datosRaw.split("#");
+        let lista = datos.split("#");
 
         lista.forEach((item, index) => {
-            let d = item.split("|"); // d[0]: Producto, d[1]: Comentario
+            let d = item.split("|");
             
             if (d.length < 2) return;
 
@@ -29,26 +27,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     </button>
                 </td>
             `;
-            contenedorTabla.appendChild(fila);
+            contenedor.appendChild(fila);
         });
     }
 
-    // 3. Función para eliminar (Global para que el onclick la encuentre)
     window.eliminarResena = (idx) => {
         if (!confirm("¿Estás seguro de que deseas eliminar este comentario?")) return;
 
-        let datosRaw = localStorage.getItem("resenasData") || "";
-        let lista = datosRaw.split("#");
+        let datos = localStorage.getItem("reseñas") || "";
+        let lista = datos.split("#");
 
-        // Quitamos la reseña seleccionada por su índice
         lista.splice(idx, 1);
 
-        // Volvemos a unir el string y guardamos
-        localStorage.setItem("resenasData", lista.join("#"));
+        localStorage.setItem("reseñas", lista.join("#"));
 
-        // Recargamos la tabla
-        cargarResenasAdmin();
+        reseñas();
     };
 
-    cargarResenasAdmin();
+    reseñas();
 });

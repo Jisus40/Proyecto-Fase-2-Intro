@@ -2,14 +2,14 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Programa de Lealtad</title>
+    <title>Gestionar-Lealtad</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="gestionar-rese%C3%B1as.style.css">
     <link rel="stylesheet" href="gestionar-lealtad.style.css">
 </head>
 <body>
 
-<header class="admin-header">
+<header class="header">
     <a href="../admin.html" class="btn-regresar"><i class="fas fa-arrow-left"></i> Volver al Panel</a>
     <h1>Gestión de Lealtad</h1>
     <div></div>
@@ -17,13 +17,13 @@
 
 <main class="container">
     <div class="card-puntos">
-        <i class="fas fa-medal" style="font-size: 3rem; color: var(--gold);"></i>
+        <i class="fas fa-medal" style="font-size: 3rem; color: #f1c40f;"></i>
         <h2>Puntos del Usuario Actual</h2>
-        <div class="saldo-actual" id="display-puntos">0</div>
+        <div class="saldo-actual" id="puntos">0</div>
         <p style="color: gray;">Modifica el saldo de puntos manualmente</p>
         
         <div style="margin: 20px 0;">
-            <input type="number" id="cantidad-ajuste" value="100">
+            <input type="number" id="ajuste" value="100">
         </div>
 
         <div class="controles">

@@ -1,24 +1,19 @@
-/* --- RESET Y BASES --- */
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+	font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
     background-color: #ffffff;
     color: #1a1a1a;
-    line-height: 1.6;
 }
 
 .contenedor {
-    max-width: 800px;
+    width: 80%;
     margin: 0 auto;
     padding: 40px 20px;
 }
 
-/* --- CABECERA --- */
 header {
     margin-bottom: 60px;
     border-bottom: 1px solid #eeeeee;
@@ -26,10 +21,8 @@ header {
 }
 
 h1 {
-    font-size: 2.5rem; /* Letras más grandes */
+    font-size: 2.5rem;
     font-weight: 700;
-    letter-spacing: -1px;
-    margin-top: 10px;
 }
 
 .volver {
@@ -44,43 +37,40 @@ h1 {
     color: #888;
 }
 
-/* --- BLOQUES DE COMPRA --- */
 .bloque-compra {
     margin-bottom: 40px;
     padding: 25px;
     background: #f9f9f9;
     border-radius: 12px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.bloque-compra:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+	border: 1px solid black;
+	border-bottom: 2px dashed #ccc;
 }
 
 h4 {
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    color: #888;
+    font-size: 1.3rem;
+    color: black;
     margin-bottom: 20px;
+	margin-left: 15px;
 }
 
-/* --- ITEMS DEL PRODUCTO --- */
-.item-historial {
-    padding: 15px 0;
+.item {
+	border: 1px dashed #000;
+	border-radius: 12px;
+    padding: 15px 15px;
+	margin: 10px 0;
 }
 
-.item-historial p {
-    font-size: 1.25rem; /* Texto de producto más grande */
+.item p {
+    font-size: 1.25rem;
     margin-bottom: 10px;
 }
 
-.item-historial strong {
+.item strong {
     font-weight: 600;
 }
 
-/* --- BOTONES Y ACCIONES --- */
+
+
 .acciones {
     display: flex;
     gap: 15px;
@@ -88,7 +78,8 @@ h4 {
     margin-top: 10px;
 }
 
-.btn-puntos {
+
+.btn-reseña {
     background: #000;
     color: #fff;
     border: 1px solid #000;
@@ -99,7 +90,7 @@ h4 {
     transition: all 0.3s ease;
 }
 
-.btn-puntos:hover {
+.btn-reseña:hover {
     background: #fff;
     color: #000;
 }
@@ -107,20 +98,20 @@ h4 {
 .btn-link {
     background: none;
     border: none;
-    color: black;
+    color: #e74c3c;
     text-decoration: none;
     font-size: 1rem;
 	font-weight: 500;
     cursor: pointer;
+	margin-left: 10px;
     transition: color 0.3s ease;
 }
 
 .btn-link:hover {
-    color: #888; /* Un toque de rojo sutil para la queja */
+    color: #888;
 }
 
-/* --- MODAL MINIMALISTA --- */
-.modal-simple {
+.modal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -175,12 +166,79 @@ textarea:focus {
     opacity: 0;
 }
 
-/* --- ANIMACIÓN DE CARGA SUAVE --- */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { 
+		opacity: 0; 
+		transform: translateY(10px); 
+	}
+    to { 
+		opacity: 1; 
+		transform: translateY(0); 
+	}
 }
 
 .bloque-compra {
     animation: fadeIn 0.5s ease forwards;
+}
+
+@media (max-width: 600px) {
+    .contenedor {
+        width: 95%;
+        padding: 20px 10px;
+    }
+
+    header {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .bloque-compra {
+        padding: 15px;
+        margin-bottom: 25px;
+    }
+
+    h4 {
+        font-size: 1.1rem;
+        margin-left: 0;
+        text-align: center;
+	}
+	
+    .item p {
+        font-size: 1rem; 
+        line-height: 1.4;
+    }
+
+    .acciones {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .btn-reseña, .btn-link {
+        width: 100%;
+        text-align: center;
+        margin-left: 0 !important;
+        padding: 12px;
+    }
+
+    .btn-link {
+        border: 1px solid #e74c3c;
+        border-radius: 6px;
+    }
+
+    .modal {
+        width: 95%;
+        padding: 20px;
+        top: 50%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    #modal-titulo {
+        font-size: 1.2rem;
+    }
 }

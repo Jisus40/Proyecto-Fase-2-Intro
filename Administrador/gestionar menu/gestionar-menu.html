@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="gestionar-menu.style.css">
 </head>
 <body>
-    <header class="admin-header">
+    <header class="header">
     <div class="header-izq">
         <a href="../admin.html" class="btn-regresar">
             <i class="fas fa-chevron-left"></i> Volver al Panel
@@ -19,10 +19,10 @@
         </div>
 </header>
 
-   <main class="contenedor-admin">
+   <main>
     <section class="seccion-form">
         <h3>Añadir Nuevo Producto</h3>
-        <form id="form-nuevo-producto" class="grid-input">
+        <form id="form" class="grid-input">
             <input type="text" id="prod-id" placeholder="ID (ej: pr11)" required>
             <input type="text" id="prod-nombre" placeholder="Nombre del plato" required>
             <input type="text" id="prod-img" placeholder="Clase CSS (img1) o Link URL" required>
@@ -39,7 +39,7 @@
                     <th>Acción</th>
                 </tr>
             </thead>
-            <tbody id="lista-gestion-productos"></tbody>
+            <tbody id="lista"></tbody>
         </table>
     </section>
 </main>

@@ -4,7 +4,7 @@
 
 body {
 	background-color: #FFFAFA;
-    font-family: sans-serif;
+	color: #1a1a1a;
 }
 
 .seccion{
@@ -13,7 +13,7 @@ body {
 
 .Hero{
 	height: 80vh;
-	background-image: url("imagenes/grande.jpg");
+	background-image: url("imagenes/hero-fondo.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -33,8 +33,6 @@ body {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 25px;
-    /* Evita parpadeos en el renderizado */
-    transform: translateZ(0); 
 }
 
 .boton{
@@ -49,8 +47,18 @@ button{
 	background-color: black;
 	border-radius: 30px;
 	border-color: white;
+	border-width: medium;
 	padding: 3%;
 	font-size: 1.2rem;
+	transition: transform 0.3s ease;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform; 
+}
+
+button:hover{
+	transform: scale(1.08);
+    padding: 3%;
 }
 
 
@@ -100,7 +108,6 @@ input {
 
 .producto, .reseña {
     transition: transform 0.3s ease;
-    /* MÁGIA AQUÍ: Fuerza el uso de la GPU */
     backface-visibility: hidden;
     perspective: 1000px;
     will-change: transform; 
@@ -172,9 +179,8 @@ input {
 	width: 60%;
 }
 
-/* Mejora el rendimiento de las imágenes de fondo */
 .img1, .img2, .img3, .img4, .img5 {
-    background-attachment: scroll; /* Asegúrate de que NO sea fixed */
+    background-attachment: scroll;
     will-change: auto;
 }
 
@@ -208,14 +214,12 @@ footer {
 	height: 7vh;
 }
 
-/* --- RESPONSIVIDAD PARA MÓVILES (Pantallas menores a 768px) --- */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     
-    /* 1. Ajuste del Hero (Bienvenida) */
     .Hero {
-        height: 60vh; /* Un poco más corto en móvil */
+        height: 60vh;
         padding: 20px;
-        font-size: 1.2rem; /* Reducimos el tamaño de letra */
+        font-size: 1.2rem;
     }
 
     .Hero p {
@@ -223,7 +227,7 @@ footer {
     }
 
     .boton {
-        width: 80%; /* Botón más ancho para que sea fácil de tocar */
+        width: 80%;
     }
 
     button {
@@ -231,52 +235,48 @@ footer {
         width: 100%;
     }
 
-    /* 2. Ajuste del Formulario de Inicio de Sesión */
     #formulario {
-        width: 90%; /* Casi todo el ancho de la pantalla */
+        width: 90%;
         height: auto;
         gap: 15px;
         padding: 20px;
     }
 
-    /* 3. Ajuste de los Productos (La parte más importante) */
     .sec2 {
         width: 100%;
         padding: 10px;
     }
 
     .producto {
-        width: 95% !important; /* Que ocupen casi todo el ancho */
-        margin: 20px auto !important; /* Centrados y sin desplazamientos laterales */
-        flex-direction: column !important; /* Imagen arriba, texto abajo */
+        width: 95% !important;
+        margin: 20px auto !important; 
+        flex-direction: column !important;
         height: auto;
     }
 
     .img1, .img2, .img3, .img4, .img5 {
-        width: 100%; /* Imagen a ancho completo */
-        height: 250px; /* Altura fija para las fotos */
+        width: 100%;
+        height: 250px;
     }
 
     .producto p {
-        width: 90%; /* Texto a ancho completo */
+        width: 90%;
         padding: 20px;
         text-align: center;
         font-size: 1rem;
     }
 
-    /* 4. Ajuste de las Reseñas */
     .contenReseña {
-        flex-direction: column; /* Una debajo de otra */
+        flex-direction: column; 
         align-items: center;
         gap: 20px;
     }
 
     .reseña {
-        width: 90%; /* Reseñas más anchas */
+        width: 90%;
         padding: 15px;
     }
 
-    /* 5. Ajustes de texto generales */
     h1 {
         font-size: 1.8rem;
     }

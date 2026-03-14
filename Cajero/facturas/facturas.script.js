@@ -1,40 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const contenedor = document.getElementById("lista-facturas-finales");
-    const rawData = localStorage.getItem("recibosData") || "";
+    let contenedor = document.getElementById("lista");
+    let recibos = localStorage.getItem("recibos") || "";
 
-    if (rawData === "") {
-        contenedor.innerHTML = "<p style='text-align:center; font-size: 1.2rem; margin-top: 50px;'>No hay facturas emitidas hoy.</p>";
+    if (recibos === "") {
+        contenedor.innerHTML = "<p class='error'>No hay facturas emitidas hoy.</p>";
         return;
     }
 
-    let facturas = rawData.split("%%");
+    let facturas = recibos.split("%%");
     contenedor.innerHTML = "";
 
     facturas.forEach(f => {
-        // En facturas el formato es: DatosDelPedido | Fecha
-        // El pedido en sí tiene: Nombre | Productos | Total
-        const ultimoPipeFactura = f.lastIndexOf("|");
-        const fecha = f.substring(ultimoPipeFactura + 1);
-        const cuerpoPedido = f.substring(0, ultimoPipeFactura);
+        let ultimoPF = f.lastIndexOf("|");
+        let fecha = f.substring(ultimoPF + 1);
+        let cuerpo = f.substring(0, ultimoPF);
 
-        // Ahora desglosamos el cuerpo del pedido
-        const primerPipe = cuerpoPedido.indexOf("|");
-        const ultimoPipe = cuerpoPedido.lastIndexOf("|");
+        let primerP = cuerpo.indexOf("|");
+        let ultimoP = cuerpo.lastIndexOf("|");
 
-        const nombre = cuerpoPedido.substring(0, primerPipe);
-        const total = cuerpoPedido.substring(ultimoPipe + 1);
-        const productosRaw = cuerpoPedido.substring(primerPipe + 1, ultimoPipe);
+        let nombre = cuerpo.substring(0, primerP);
+        let total = cuerpo.substring(ultimoP + 1);
+        let productos1 = cuerpo.substring(primerP + 1, ultimoP);
 
         let card = document.createElement("div");
         card.className = "factura-bloque";
 
-        let listaHTML = "";
-        let productos = productosRaw.split(";");
-        productos.forEach(p => {
+        let lista = "";
+        let productos2 = productos1.split(";");
+        productos2.forEach(p => {
             let d = p.split("|");
             if (d.length >= 2) {
-                listaHTML += `
-                <li style="display: flex; justify-content: space-between; font-size: 1.3rem; padding: 10px 0; border-bottom: 1px dashed #ccc;">
+                lista += `
+                <li>
                     <span>${d[0].trim()} (x${d[1]})</span>
                     <span>${d[2]}$</span>
                 </li>`;
@@ -44,11 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
         card.innerHTML = `
             <div class="etiqueta-finalizado">COMPRA FINALIZADA</div>
             <div class="cliente-info">
-                <h2 style="font-size: 2.2rem; margin-bottom: 5px;">${nombre}</h2>
-                <p style="color: #666; font-size: 1.1rem;">Emitido el: ${fecha}</p>
+                <h2>${nombre}</h2>
+                <p>Emitido el: ${fecha}</p>
             </div>
             <ul style="list-style: none; padding: 0; margin: 30px 0;">
-                ${listaHTML}
+                ${lista}
             </ul>
             <div class="total-final">
                 <span>TOTAL PAGADO:</span> ${total}$
