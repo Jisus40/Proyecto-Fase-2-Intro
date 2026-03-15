@@ -111,6 +111,9 @@ h2 {
     background-color: #eaeaea; 
     color: #bbb;
     border-radius: 8px;
+	background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .pr-titulo {

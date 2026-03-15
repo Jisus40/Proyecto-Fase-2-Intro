@@ -27,6 +27,10 @@ bloquear.onclick = () => {
     let user = usuario.value.trim().replace(/['"]+/g, ''); 
     
     if (user === "") return;
+	if (user === "adminRoot"){
+		alert("No puedes bloquear al Usuario de administracion");
+		return;
+	}
 
     let datos = localStorage.getItem("bloqueados") || "";
     let bloqueados = datos === "" ? [] : datos.replace(/['"]+/g, '').split("#");

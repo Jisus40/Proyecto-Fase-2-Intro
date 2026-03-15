@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let imagen = "";
 
-            if (datos[2].startsWith("http")) {
-                imagen = `<div class="pr-img" style="background-image: url('${dato[2]}');></div>`;
+            if (dato[2].startsWith("http")) {
+                imagen = `<div class="pr-img" style="background-image: url('${dato[2]}')"></div>`;
             } else {
                 imagen = `<div class="pr-img ${dato[2]}"></div>`;
             }
